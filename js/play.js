@@ -1,6 +1,7 @@
 var playState = {
   preload: function() {
     game.load.image('player', 'assets/p1_stand.png');
+    game.load.image('wallH', 'assets/wallHorizontal.png');
   },
 
   create: function() {
@@ -15,9 +16,17 @@ var playState = {
     this.player.body.gravity.y = 500;
 
     this.cursor = game.input.keyboard.createCursorKeys();
+
+    this.floor = game.add.group();
+    this.floor.enableBody = true;
+    game.add.sprite(0, 320, 'wallH', 0, this.floor);
+    game.add.sprite(300, 320, 'wallH', 0, this.floor);
+    this.floor.setAll('body.immovable', true);
   },
 
   update: function () {
+    game.physics.arcade.collide(this.player, this.floor);
+    
     this.movePlayer();
   },
 
