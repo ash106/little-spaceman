@@ -1,5 +1,9 @@
 var playState = {
 
+  preload: function() {
+    game.time.advancedTiming = true;
+  },
+
   create: function() {
     game.stage.backgroundColor = '#d0f4f7';
     game.physics.startSystem(Phaser.Physics.ARCADE);
@@ -27,6 +31,10 @@ var playState = {
     game.physics.arcade.collide(this.player, this.layer);
     
     this.movePlayer();
+  },
+
+  render: function() {
+    game.debug.text(game.time.fps || '--', 20, 70, "#000000", "40px Courier");
   },
 
   movePlayer: function() {
